@@ -1,14 +1,18 @@
-import express, { Request, Response } from "express";
-import {env} from "../config/env";
+import express, { Application, Request, Response } from "express";
 import logger from 'morgan';
 import cors from 'cors';
 
-const app = express();
-const port = env.APP_PORT || 3000;
+const app: Application = express();
 
 app.use(express.json());
 app.use(logger('dev'))
-app.use(cors());
+app.use(
+  cors({
+    origin: '*', // Please don't do this in real-world apps
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  }),
+)
 app.use(express.urlencoded({ extended: false }));
 
 export default app;
