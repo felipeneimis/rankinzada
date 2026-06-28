@@ -1,6 +1,9 @@
 import express, { Application, Request, Response } from "express";
 import logger from 'morgan';
 import cors from 'cors';
+import routes from "../routes";
+import { API_PREFIX } from "./constants";
+import { Pool } from "pg";
 
 const app: Application = express();
 
@@ -14,5 +17,7 @@ app.use(
   }),
 )
 app.use(express.urlencoded({ extended: false }));
+
+app.use(API_PREFIX, routes);
 
 export default app;

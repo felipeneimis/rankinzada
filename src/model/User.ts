@@ -1,9 +1,9 @@
 import { Role } from "../../generated/prisma/enums";
 
 export interface User{
-    id: number;
+    id?: number;
     username: string;
-    role: Role;
+    role?: Role;
     password: string;
-    createdAt: Date;
+    createdAt?: Date;
 }
