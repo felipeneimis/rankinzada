@@ -1,7 +1,7 @@
 import { hash, verify } from "argon2";
 import { authUserSchema } from "../dto/request/auth-user.request";
 import { createUserSchema } from "../dto/request/create-user.request";
-import UserRepostitory from "../repositories/UserRepostitory";
+import UserRepostitory from "../repositories/user.repository";
 import { toUserResponse } from "../dto/response/create-user.response";
 import { AppError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
