@@ -1,7 +1,9 @@
 // src/middlewares/authenticate.ts
-import jwt, { TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../errors/AppError";
+
+const { TokenExpiredError, JsonWebTokenError } = jwt;
 
 export function authenticate(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;

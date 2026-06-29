@@ -35,7 +35,7 @@ export default {
             const token = jwt.sign(
                 { id: user.id, role: user.role },
                 JWT_SECRET,
-                { expiresIn: "20s" }
+                { expiresIn: "1h" }
             );
 
             return { token, user: toUserResponse(user) };
