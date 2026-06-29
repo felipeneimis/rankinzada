@@ -24,7 +24,7 @@ export default [
       "no-console": "off",
       semi: ["error", "always"],
       quotes: ["error", "double"],
-      "prettier/prettier": "error",
+      "prettier/prettier": ["error", { endOfLine: "lf" }],
     },
   },
 ];
