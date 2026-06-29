@@ -1,33 +1,28 @@
 import { ZodError } from "zod";
 import { authUserSchema } from "../dto/request/auth-user.request.js";
 import { createUserSchema } from "../dto/request/create-user.request.js";
-import { User } from "../model/User.js";
 import UserRepostitory from "../repositories/UserRepostitory.js";
-import { Request, Response } from "express";
-
+import { NextFunction, Request, Response } from "express";
+import argon2 from "argon2";
+import userService from "../services/userService.js";
 
 export default class AuthController {
-    static async login(req: Request, res: Response) {
-        const body = authUserSchema.parse(req.body);
-
-        //    
+    static async login(req: Request, res: Response, next: NextFunction) {
+        try {
+            const found = await userService.loginUser(req.body);
+            return res.json(found);
+        } catch (error) {
+            next(error);
+        }   
     }
 
-    static async register(req: Request, res: Response) {
+    static async register(req: Request, res: Response, next: NextFunction){
         try {
-            const body = createUserSchema.parse(req.body);
-
-            const created = await UserRepostitory.create(body);
-            return res.json(created); 
-        } 
+            const created = await userService.createUser(req.body)
+            return res.json(created);
+        }
         catch (error) {
-            if (error instanceof ZodError) {
-                return res.json({
-                    message: "Erro de validação",
-                    errors: error.issues,
-                });
-            }
-            throw error;
+            next(error);
         }
     }
 }
