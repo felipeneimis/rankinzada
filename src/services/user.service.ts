@@ -1,15 +1,16 @@
 import { hash, verify } from "argon2";
-import { authUserSchema } from "../dto/request/auth-user.request";
+import { AuthUserRequest, authUserSchema } from "../dto/request/auth-user.request";
 import { createUserSchema } from "../dto/request/create-user.request";
 import UserRepostitory from "../repositories/user.repository";
 import { toUserResponse } from "../dto/response/create-user.response";
 import { AppError } from "../errors/AppError";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/env";
+import { generateToken } from "./token.service";
 
 
 export default {
-    createUser: async (user: authUserSchema) => {
+    createUser: async (user: AuthUserRequest) => {
         try {
             const body = createUserSchema.parse(user);
             const hashed = await hash(body.password);
@@ -20,7 +21,7 @@ export default {
             throw error;
         }
     },
-    loginUser: async (data: authUserSchema) => {
+    loginUser: async (data: AuthUserRequest) => {
         try {
             const body = authUserSchema.parse(data);
             const user = await UserRepostitory.findByUsername(body.username);
@@ -32,13 +33,9 @@ export default {
             const valid = await verify(user.password, body.password);
             if (!valid) throw new AppError("Credenciais inválidas", 401);
 
-            const token = jwt.sign(
-                { id: user.id, role: user.role },
-                JWT_SECRET,
-                { expiresIn: "1h" }
-            );
+            const token = generateToken(user);
 
-            return { token, user: toUserResponse(user) };
+            return { token };
 
         } catch (error) {
             throw error;

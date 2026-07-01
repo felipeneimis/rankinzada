@@ -7,6 +7,6 @@ import { authenticate } from "../middlewares/auth.middleware";
 const router = Router()
 
 router.use('/auth', auth)
-router.use('/rankinzada', authenticate, rankinzada)
+router.use('/rankinzadas', authenticate, rankinzada)
 
 export default router;

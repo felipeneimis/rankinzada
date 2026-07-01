@@ -13,6 +13,16 @@ datasource db {
   schemas = ["rankinzada"]
 }
 
+enum RankinzadaStatus{
+  SUGGESTION
+  PARTICIPATION
+  VOTING
+  FINISHED
+
+  @@map("rankinzada_status")
+  @@schema("rankinzada")
+}
+
 enum Role {
   ADMIN
   USER
@@ -24,10 +34,27 @@ model User{
   username String @unique
   password String
   role Role @default(USER)
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  createdRankinzas Rankinzada[]
 
   @@map("users")
   @@schema("rankinzada")
 }
 
+//TODO: remover title e manter apenas theme
 
+model Rankinzada{
+  id Int @id @default(autoincrement())
+  title String
+  theme String
+  description String
+  rankinzadaStatus RankinzadaStatus @default(SUGGESTION) @map("rankinzada_status")
+  creatorId   Int
+  creator User @relation(fields: [creatorId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("rankinzadas")
+  @@schema("rankinzada")
+}

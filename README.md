@@ -35,9 +35,9 @@ flowchart LR
 
 ## Endpoints
 
-`POST /auth:` Autenticar usuário e retornar token JWT.
+`POST /auth/login:` Autenticar usuário e retornar token JWT.
 
-`POST /users:` Cadastrar um novo usuário.
+`POST /auth/register:` Cadastrar um novo usuário.
 
 `GET /users/me`: Retornar as informações do usuário autenticado.
 

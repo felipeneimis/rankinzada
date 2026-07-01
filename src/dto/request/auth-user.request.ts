@@ -5,4 +5,4 @@ export const authUserSchema = z.object({
     password: z.string().min(6).max(20)
 })
 
-export type authUserSchema = z.infer<typeof authUserSchema>;
+export type AuthUserRequest = z.infer<typeof authUserSchema>;

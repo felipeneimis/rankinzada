@@ -1,9 +1,9 @@
 import { User } from "../../generated/prisma/browser";
-import { authUserSchema } from "../dto/request/auth-user.request";
+import { AuthUserRequest } from "../dto/request/auth-user.request";
 import { prisma } from "../lib/prisma";
 
 export default {
-    async create(user: authUserSchema): Promise<User> {
+    async create(user: AuthUserRequest): Promise<User> {
         const created = await prisma.user.create({
             data: user
         })
