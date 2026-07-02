@@ -42,11 +42,9 @@ model User{
   @@schema("rankinzada")
 }
 
-//TODO: remover title e manter apenas theme
 
 model Rankinzada{
   id Int @id @default(autoincrement())
-  title String
   theme String
   description String
   rankinzadaStatus RankinzadaStatus @default(SUGGESTION) @map("rankinzada_status")

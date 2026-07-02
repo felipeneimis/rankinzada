@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import userService from "../services/user.service.js";
 
-//TODO: Mover register para usuario, ao inves de register renomear para criar usuario.
 
 export default {
     async login(req: Request, res: Response, next: NextFunction) {

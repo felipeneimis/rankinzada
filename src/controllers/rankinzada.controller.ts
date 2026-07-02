@@ -10,7 +10,7 @@ import rankinzadaService from "../services/rankinzada.service";
 export default{
     async createRankinzada(req: Request, res: Response, next: NextFunction){
         try {
-            const created = rankinzadaService.createRankinzada(req.body);
+            const created = await rankinzadaService.createRankinzada(req.body);
             return res.json(created);
         } catch (error) {
             next(error)
