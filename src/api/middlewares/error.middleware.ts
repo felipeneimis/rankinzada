@@ -7,10 +7,12 @@ import { AppError } from "../../errors/AppError";
 export function errorHandler(err: unknown, req: Request, res: Response, next: NextFunction) {
 
     if (err instanceof ZodError) {
-        return res.status(400).json({
-            message: "Erro de validação",
-            errors: err.issues,
-        });
+        const errors: Record<string, string> = {};
+        for (const issue of err.issues) {
+            const field = issue.path.join(".");
+            errors[field] = issue.message;
+        }
+        return res.status(400).json({ errors });
     }
 
     if (err instanceof PrismaClientKnownRequestError) {
