@@ -2,10 +2,14 @@ import { z } from "zod";
 import { RankinzadaStatus } from "../../../generated/prisma/enums";
 
 
+// TODO: Mensagem da Validação de page
+//TODO: Mensagem Validação de limit
+//TODO: Mensagem Validação de theme
+//TODO: Mensagem Validação de status
+
 export const listRankinzadaSchema = z.object({
     page: z.coerce.number().int().min(1).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(20),
-
     theme: z.string()
         .min(5, { error: "O tema deve ter pelo menos 5 caracteres" })
         .max(100, { error: "O tema deve ter no máximo 100 caracteres" })

@@ -1,16 +1,22 @@
 import { Prisma, Rankinzada } from "../../generated/prisma/browser";
 import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request";
+import { FindRankinzadaByIdRequest } from "../dto/request/find-rankinzadabyid.request";
 import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
 import { prisma } from "../lib/prisma";
 
 
 export default {
     async create(rankinzada: CreateRankinzadaRequest): Promise<Rankinzada> {
-        const created = await prisma.rankinzada.create({
+        return prisma.rankinzada.create({
             data: rankinzada
         })
+    },
 
-        return created;
+    async findById(id: FindRankinzadaByIdRequest){
+        return prisma.rankinzada.findUnique({
+            where: {id: Number(id)}
+        })
+
     },
 
     async findMany(filter: ListRankinzadaRequest) {

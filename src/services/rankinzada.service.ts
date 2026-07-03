@@ -1,4 +1,5 @@
 import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request"
+import { FindRankinzadaByIdRequest } from "../dto/request/find-rankinzadabyid.request";
 import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
 import { Filter } from "../interfaces/Filter";
 import rankinzadaRepository from "../repositories/rankinzada.repository"
@@ -17,6 +18,15 @@ export default {
         try {
             const results = rankinzadaRepository.findMany(filter)
             return results
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    findById(id: FindRankinzadaByIdRequest){
+        try {
+            const rankinzada = rankinzadaRepository.findById(id)
+            return rankinzada;
         } catch (error) {
             throw error;
         }
