@@ -1,6 +1,5 @@
 import { Prisma, Rankinzada } from "../../generated/prisma/browser";
 import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request";
-import { FindRankinzadaByIdRequest } from "../dto/request/find-rankinzadabyid.request";
 import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
 import { prisma } from "../lib/prisma";
 
@@ -12,9 +11,9 @@ export default {
         })
     },
 
-    async findById(id: FindRankinzadaByIdRequest){
+    async findById(id: number){
         return prisma.rankinzada.findUnique({
-            where: {id: Number(id)}
+            where: {id: id}
         })
 
     },
@@ -29,7 +28,7 @@ export default {
             };
         }
 
-        if (filter.status) {
+        if (filter.rankinzadaStatus) {
             where.rankinzadaStatus = filter.rankinzadaStatus;
         }
 

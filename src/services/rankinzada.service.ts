@@ -23,7 +23,7 @@ export default {
         }
     },
 
-    findById(id: FindRankinzadaByIdRequest){
+    findById({id}: FindRankinzadaByIdRequest){
         try {
             const rankinzada = rankinzadaRepository.findById(id)
             return rankinzada;

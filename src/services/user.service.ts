@@ -35,9 +35,10 @@ export default {
 
             const token = generateToken(user);
 
-            return { token };
+            return { token,  };
 
         } catch (error) {
+            console.log(error)
             throw error;
         }
     }

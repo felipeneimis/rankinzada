@@ -33,10 +33,8 @@ export default {
     },
     async findRankinzadaById(req: Request, res: Response, next: NextFunction){
         try {
-            const id = findRankinzadaByIdRankinzadaSchema.parse(req.body)
-            
-            const rankinzada = await rankinzadaService.findById(id);
-
+            const params = findRankinzadaByIdRankinzadaSchema.parse(req.params)
+            const rankinzada = await rankinzadaService.findById(params);
             return res.json(rankinzada)
         } catch (error) {
             next(error)
