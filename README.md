@@ -37,7 +37,7 @@ flowchart LR
 - [x] Usuário pode logar
 - [x] Usuario pode se regsitrar
 - [x] Listar rankinzadas
-- [x] 
+- [x]
 
 ## Endpoints
 
@@ -56,6 +56,7 @@ flowchart LR
 `PUT /rankinzadas/{id}`: Editar uma rankinzada.
 
 `PATCH /rankinzadas/{id}/status`: Atualizar a fase da rankinzada.
+
 - SUGGESTION
 - PARTICIPATION
 - VOTING

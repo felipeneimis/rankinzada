@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { RankinzadaStatus } from "../../../generated/prisma/enums";
 
-
 export const listRankinzadaSchema = z.object({
   page: z.coerce
     .number({
@@ -24,7 +23,7 @@ export const listRankinzadaSchema = z.object({
     .max(100, { error: "Theme must be at most 100 characters" })
     .trim()
     .optional(),
-    
+
   rankinzadaStatus: z
     .string()
     .transform((val) => val.toUpperCase())
