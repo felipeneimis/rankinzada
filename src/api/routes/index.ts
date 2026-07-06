@@ -1,12 +1,11 @@
-import { Application, Router } from "express";
-import auth from './auth.route';
-import rankinzada from './rankinzada.route'
+import { Router } from "express";
 import { authenticate } from "../middlewares/auth.middleware";
+import auth from "./auth.route";
+import rankinzada from "./rankinzada.route";
 
+const router = Router();
 
-const router = Router()
-
-router.use('/auth', auth)
-router.use('/rankinzada', authenticate, rankinzada)
+router.use("/auth", auth);
+router.use("/rankinzadas", authenticate, rankinzada);
 
 export default router;

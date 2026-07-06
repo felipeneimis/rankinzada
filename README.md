@@ -32,12 +32,18 @@ flowchart LR
     Mod --> UC4
 ```
 
+## Fatures
+
+- [x] Usuário pode logar
+- [x] Usuario pode se regsitrar
+- [x] Listar rankinzadas
+- [x]
 
 ## Endpoints
 
-`POST /auth:` Autenticar usuário e retornar token JWT.
+`POST /auth/login:` Autenticar usuário e retornar token JWT.
 
-`POST /users:` Cadastrar um novo usuário.
+`POST /auth/register:` Cadastrar um novo usuário.
 
 `GET /users/me`: Retornar as informações do usuário autenticado.
 
@@ -50,6 +56,7 @@ flowchart LR
 `PUT /rankinzadas/{id}`: Editar uma rankinzada.
 
 `PATCH /rankinzadas/{id}/status`: Atualizar a fase da rankinzada.
+
 - SUGGESTION
 - PARTICIPATION
 - VOTING
