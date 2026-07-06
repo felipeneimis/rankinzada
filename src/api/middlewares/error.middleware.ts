@@ -1,5 +1,5 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { AppError } from "../../errors/AppError";
 
@@ -9,8 +9,13 @@ interface DriverAdapterError {
   };
 }
 
-// src/middlewares/errorHandler.ts
-export function errorHandler(err: unknown, req: Request, res: Response) {
+export function errorHandler(
+  err: unknown,
+  req: Request,
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next: NextFunction,
+) {
   if (err instanceof ZodError) {
     const errors: Record<string, string> = {};
     for (const issue of err.issues) {
@@ -34,15 +39,15 @@ export function errorHandler(err: unknown, req: Request, res: Response) {
         ?.replace("_key", "");
 
       return res.status(409).json({
-        message: `${field ?? "Campo"} já está em uso`,
+        message: `${field ?? "Field"} is already in use`,
       });
     }
 
     if (err.code === "P2025") {
-      const model = (err.meta?.modelName as string) ?? "Registro";
+      const model = (err.meta?.modelName as string) ?? "Record";
 
       return res.status(404).json({
-        message: `${model} não encontrado`,
+        message: `${model} not found`,
       });
     }
   }
@@ -52,5 +57,5 @@ export function errorHandler(err: unknown, req: Request, res: Response) {
   }
 
   console.error(err);
-  return res.status(500).json({ message: "Erro interno do servidor" });
+  return res.status(500).json({ message: "Internal server error" });
 }

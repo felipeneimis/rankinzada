@@ -45,13 +45,16 @@ export default {
       prisma.rankinzada.count({ where }),
     ]);
 
+    const totalPages = Math.ceil(total / filter.limit);
     return {
       data: rankinzadas,
       meta: {
         page: filter.page,
         limit: filter.limit,
         total,
-        totalPages: Math.ceil(total / filter.limit),
+        totalPages,
+        hasNextPage: filter.page < totalPages,
+        hasPreviousPage: filter.page > 1,
       },
     };
   },

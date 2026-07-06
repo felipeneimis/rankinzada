@@ -15,10 +15,6 @@ router.get("/:id", (req: Request, res: Response, next: NextFunction) =>
 router.put("/:id", (req: Request, res: Response, next: NextFunction) =>
   rankinzadaController.updateRankinzada(req, res, next),
 );
-router.patch("/:id/status", (req: Request, res: Response, next: NextFunction) =>
-  rankinzadaController.updateRankinzadaStatus(req, res, next),
-);
-
 router.delete("/:id", (req: Request, res: Response, next: NextFunction) =>
   rankinzadaController.deleteRankinzada(req, res, next),
 );

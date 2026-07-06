@@ -50,27 +50,13 @@ export default {
       next(error);
     }
   },
-  async updateRankinzadaStatus(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
-    try {
-      const params = findRankinzadaByIdRankinzadaSchema.parse(req.params);
-      const updated = await rankinzadaService.updateRankinzadaStatus(
-        params.id,
-        req.body,
-      );
-      return res.json(updated);
-    } catch (error) {
-      next(error);
-    }
-  },
   async deleteRankinzada(req: Request, res: Response, next: NextFunction) {
     try {
       const params = findRankinzadaByIdRankinzadaSchema.parse(req.params);
-      const deleted = await rankinzadaService.deleteRankinzada(params);
-      return res.json(deleted);
+      const deleted = await rankinzadaService.deleteRankinzada(params.id);
+      if (deleted) {
+        return res.sendStatus(204);
+      }
     } catch (error) {
       next(error);
     }

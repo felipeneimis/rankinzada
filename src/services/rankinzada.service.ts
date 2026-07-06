@@ -1,4 +1,3 @@
-import { error } from "node:console";
 import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request";
 import { FindRankinzadaByIdRequest } from "../dto/request/find-rankinzadabyid.request";
 import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
@@ -41,18 +40,14 @@ export default {
       throw error;
     }
   },
-  updateRankinzadaStatus(id: number, status: UpdateRankinzadaRequest) {
+  async deleteRankinzada(id: number) {
     try {
-      const rankinzada = rankinzadaRepository.updateStatus(id, status);
-      return rankinzada;
-    } catch {
-      throw error;
-    }
-  },
-  deleteRankinzada(id: number) {
-    try {
-      const rankinzada = rankinzadaRepository.delete(id);
-      return rankinzada;
+      const deleted = await rankinzadaRepository.delete(id);
+      if (deleted) {
+        return true;
+      }
+
+      return false;
     } catch (error) {
       throw error;
     }
