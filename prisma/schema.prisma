@@ -10,10 +10,10 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas = ["rankinzada"]
+  schemas  = ["rankinzada"]
 }
 
-enum RankinzadaStatus{
+enum RankinzadaStatus {
   SUGGESTION
   PARTICIPATION
   VOTING
@@ -26,33 +26,75 @@ enum RankinzadaStatus{
 enum Role {
   ADMIN
   USER
+
   @@schema("rankinzada")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  username String @unique
-  password String
-  role Role @default(USER)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
-  createdRankinzas Rankinzada[]
+enum SongType {
+  OP
+  ED
+  INSERT
+
+  @@map("song_type")
+  @@schema("rankinzada")
+}
+
+enum SongStatus {
+  PENDING
+  APPROVED
+  REJECTED
+
+  @@map("song_status")
+  @@schema("rankinzada")
+}
+
+model User {
+  id                 Int          @id @default(autoincrement())
+  username           String       @unique
+  password           String
+  role               Role         @default(USER)
+  createdAt          DateTime     @default(now()) @map("created_at")
+  updatedAt          DateTime     @default(now()) @map("updated_at")
+  createdRankinzadas Rankinzada[]
+  rankedSongs        RankedSong[]
 
   @@map("users")
   @@schema("rankinzada")
 }
 
-
-model Rankinzada{
-  id Int @id @default(autoincrement())
-  theme String
-  description String
+model Rankinzada {
+  id               Int              @id @default(autoincrement())
+  theme            String
+  description      String
   rankinzadaStatus RankinzadaStatus @default(SUGGESTION) @map("rankinzada_status")
-  creatorId   Int
-  creator User @relation(fields: [creatorId], references: [id])
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
+  creatorId        Int              @map("creator_id")
+  creator          User             @relation(fields: [creatorId], references: [id])
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @default(now()) @map("updated_at")
+  songs            RankedSong[]
 
   @@map("rankinzadas")
+  @@schema("rankinzada")
+}
+
+model RankedSong {
+  id           Int        @id @default(autoincrement())
+  title        String
+  artist       String
+  anime        String
+  videoUrl     String
+  status       SongStatus @default(PENDING)
+  type         SongType
+  finalScore   Float      @default(0) @map("final_score")
+  position     Int        @default(0)
+  songNumber   Int        @default(1) @map("song_number")
+  suggestedBy  Int        @map("suggested_by")
+  suggester    User       @relation(fields: [suggestedBy], references: [id])
+  rankinzadaId Int        @map("rankinzada_id")
+  rankinzada   Rankinzada @relation(fields: [rankinzadaId], references: [id])
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @default(now()) @map("updated_at")
+
+  @@map("ranked_songs")
   @@schema("rankinzada")
 }

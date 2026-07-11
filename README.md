@@ -32,13 +32,6 @@ flowchart LR
     Mod --> UC4
 ```
 
-## Fatures
-
-- [x] Usuário pode logar
-- [x] Usuario pode se regsitrar
-- [x] Listar rankinzadas
-- [x]
-
 ## Endpoints
 
 `POST /auth/login:` Autenticar usuário e retornar token JWT.

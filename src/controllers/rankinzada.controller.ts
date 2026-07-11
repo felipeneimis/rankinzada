@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import rankinzadaService from "../services/rankinzada.service";
-import { createRankinzadaSchema } from "../dto/request/create-rankinzada.request";
-import { listRankinzadaSchema } from "../dto/request/list-rankinzada.request";
-import { findRankinzadaByIdRankinzadaSchema } from "../dto/request/find-rankinzadabyid.request";
-import { updateRankinzadaRequestSchema } from "../dto/request/update-rankinzada.request";
+import { createRankinzadaSchema } from "../dto/request/rankinzada/create-rankinzada.request";
+import { listRankinzadaSchema } from "../dto/request/rankinzada/list-rankinzada.request";
+import { findRankinzadaByIdRankinzadaSchema } from "../dto/request/rankinzada/find-rankinzadabyid.request";
+import { updateRankinzadaRequestSchema } from "../dto/request/rankinzada/update-rankinzada.request";
 
 // [ ]: Futuramente checar role para poder saber se usuário pode ou não criar rankinzada
 
@@ -30,6 +30,7 @@ export default {
   },
   async findRankinzadaById(req: Request, res: Response, next: NextFunction) {
     try {
+      console.log(req.params.id);
       const params = findRankinzadaByIdRankinzadaSchema.parse(req.params);
       const rankinzada = await rankinzadaService.findById(params);
       return res.json(rankinzada);

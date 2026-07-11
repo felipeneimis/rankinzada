@@ -1,41 +1,37 @@
-import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request";
-import { FindRankinzadaByIdRequest } from "../dto/request/find-rankinzadabyid.request";
-import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
-import { UpdateRankinzadaRequest } from "../dto/request/update-rankinzada.request";
+import { CreateRankinzadaRequest } from "../dto/request/rankinzada/create-rankinzada.request";
+import { FindRankinzadaByIdRequest } from "../dto/request/rankinzada/find-rankinzadabyid.request";
+import { ListRankinzadaRequest } from "../dto/request/rankinzada/list-rankinzada.request";
+import { UpdateRankinzadaRequest } from "../dto/request/rankinzada/update-rankinzada.request";
 import rankinzadaRepository from "../repositories/rankinzada.repository";
 
 export default {
-  createRankinzada(rankinzada: CreateRankinzadaRequest) {
+  async createRankinzada(rankinzada: CreateRankinzadaRequest) {
     try {
-      const created = rankinzadaRepository.create(rankinzada);
-      return created;
+      return await rankinzadaRepository.create(rankinzada);
     } catch (error) {
       throw error;
     }
   },
 
-  listRankinzada(filter: ListRankinzadaRequest) {
+  async listRankinzada(filter: ListRankinzadaRequest) {
     try {
-      const results = rankinzadaRepository.findMany(filter);
-      return results;
+      return await rankinzadaRepository.findMany(filter);
     } catch (error) {
       throw error;
     }
   },
 
-  findById({ id }: FindRankinzadaByIdRequest) {
+  async findById({ id }: FindRankinzadaByIdRequest) {
     try {
-      const rankinzada = rankinzadaRepository.findById(id);
-      return rankinzada;
+      return await rankinzadaRepository.findById(id);
     } catch (error) {
       throw error;
     }
   },
 
-  updateRankinzada(id: number, payload: UpdateRankinzadaRequest) {
+  async updateRankinzada(id: number, payload: UpdateRankinzadaRequest) {
     try {
-      const rankinzada = rankinzadaRepository.update(id, payload);
-      return rankinzada;
+      return await rankinzadaRepository.update(id, payload);
     } catch (error) {
       throw error;
     }

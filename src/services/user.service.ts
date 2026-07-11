@@ -2,8 +2,8 @@ import { hash, verify } from "argon2";
 import {
   AuthUserRequest,
   authUserSchema,
-} from "../dto/request/auth-user.request";
-import { createUserSchema } from "../dto/request/create-user.request";
+} from "../dto/request/user/auth-user.request";
+import { createUserSchema } from "../dto/request/user/create-user.request";
 import { toUserResponse } from "../dto/response/create-user.response";
 import { AppError } from "../errors/AppError";
 import UserRepostitory from "../repositories/user.repository";

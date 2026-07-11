@@ -2,10 +2,14 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import { AppError } from "../../errors/AppError";
+import { Prisma } from "../../../generated/prisma/client";
 
 interface DriverAdapterError {
   cause?: {
     originalMessage?: string;
+    constraint?: {
+      index?: string;
+    };
   };
 }
 
@@ -25,7 +29,7 @@ export function errorHandler(
     return res.status(400).json({ errors });
   }
 
-  if (err instanceof PrismaClientKnownRequestError) {
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === "P2002") {
       const meta = err.meta as {
         driverAdapterError?: DriverAdapterError;
@@ -48,6 +52,23 @@ export function errorHandler(
 
       return res.status(404).json({
         message: `${model} not found`,
+      });
+    }
+
+    if (err.code === "P2003") {
+      const meta = err.meta as {
+        driverAdapterError?: DriverAdapterError;
+        modelName?: string;
+      };
+      const constraint = meta?.driverAdapterError?.cause?.constraint?.index;
+      const field = constraint
+        ?.match(/_(.+)_fkey$/)?.[1]
+        ?.replace(`${meta?.modelName?.toLowerCase()}s_`, "");
+
+      return res.status(409).json({
+        message: field
+          ? `Foreign key constraint violated on ${field}`
+          : "Foreign key constraint violated",
       });
     }
   }

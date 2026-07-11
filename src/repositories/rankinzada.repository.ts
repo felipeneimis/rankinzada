@@ -1,6 +1,6 @@
 import { Prisma, Rankinzada } from "../../generated/prisma/browser";
 import { CreateRankinzadaRequest } from "../dto/request/create-rankinzada.request";
-import { ListRankinzadaRequest } from "../dto/request/list-rankinzada.request";
+import { ListRankinzadaRequest } from "../dto/request/rankinzada/list-rankinzada.request";
 import { UpdateRankinzadaRequest } from "../dto/request/update-rankinzada.request";
 import { prisma } from "../lib/prisma";
 

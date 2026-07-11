@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RankinzadaStatus } from "../../../generated/prisma/enums";
+import { RankinzadaStatus } from "../../../../generated/prisma/enums";
 
 export const updateRankinzadaRequestSchema = z.object({
   description: z.string().optional(),

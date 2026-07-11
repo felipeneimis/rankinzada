@@ -1,5 +1,5 @@
 import { User } from "../../generated/prisma/browser";
-import { AuthUserRequest } from "../dto/request/auth-user.request";
+import { AuthUserRequest } from "../dto/request/user/auth-user.request";
 import { prisma } from "../lib/prisma";
 
 export default {
