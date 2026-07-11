@@ -25,13 +25,13 @@ router.post("/:id/songs", (req: Request, res: Response, next: NextFunction) =>
 );
 
 router.get("/:id/songs", (req: Request, res: Response, next: NextFunction) =>
-  rankinzadaController.createRankinzada(req, res, next),
+  songController.listSong(req, res, next),
 );
 
 router.get(
   "/:id/songs/:songId",
   (req: Request, res: Response, next: NextFunction) =>
-    rankinzadaController.createRankinzada(req, res, next),
+    songController.listSong(req, res, next),
 );
 
 router.put(
